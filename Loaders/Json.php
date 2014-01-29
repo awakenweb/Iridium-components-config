@@ -8,14 +8,12 @@
 
 namespace Iridium\Components\Config\Loaders;
 
-use Symfony\Component\Yaml\Yaml as SfYaml;
-
 /**
  * Description of Yaml
  *
  * @author Administrateur
  */
-class Yaml implements LoaderInterface
+class Json implements LoaderInterface
 {
 
     /**
@@ -29,7 +27,7 @@ class Yaml implements LoaderInterface
     {
         $file = new \SplFileInfo( $filename );
 
-        if ( 'yml' === $file->getExtension() || 'yaml' === $file->getExtension() ) {
+        if ( 'json' === $file->getExtension() ) {
             return true;
         }
 
@@ -52,13 +50,13 @@ class Yaml implements LoaderInterface
             "Unable to read configuration file '$filename'" );
         }
 
-        try {
-            $content = SfYaml::parse( $filename );
-            return $content;
-        } catch ( \Exception $e ) {
+
+        $content = json_decode( file_get_contents( $file->getRealPath() ) , true );
+        if ( JSON_ERROR_NONE !== json_last_error() ) {
             throw new \RuntimeException(
-            "Error while parsing '$filename' configuration file" , $e->getCode() , $e );
+            "Error while parsing '$filename' configuration file" , json_last_error() );
         }
+        return $content;
     }
 
 }
