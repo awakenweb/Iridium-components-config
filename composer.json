@@ -1,6 +1,6 @@
 {
     "name": "awakenweb/iridium-components-config",
-    "description": "Iridium Components Congifuration files module",
+    "description": "Iridium Components Configuration files handling module",
     "license": "MIT",
     "minimum-stability": "dev",
     "type": "library",
@@ -13,7 +13,8 @@
                 }
             ],
     "require": {
-        "php": ">=5.4.0"
+        "php": ">=5.4.0",
+        "symfony/yaml": "dev-master"
     },
     "require-dev": {
         "atoum/atoum": "dev-master"
